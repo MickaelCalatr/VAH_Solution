@@ -12,7 +12,7 @@ def get_news_positions(camera, width, height):
         xmax = int((750 * width) / 1280)
         ymax = int((600 * height) / 720)
     elif camera == 2:
-        xmin = int((300 * width) / 1280)
+        xmin = int((200 * width) / 1280)
         ymin = int((200 * height) / 720)
         xmax = int((600 * width) / 1280)
         ymax = int((400 * height) / 720)

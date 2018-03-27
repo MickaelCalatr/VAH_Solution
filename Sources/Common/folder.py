@@ -13,3 +13,8 @@ def delete(name):
 def remove(name):
     if os.path.exists(name):
         os.remove(name)
+
+def check_path(path):
+    if path[-1] != '/':
+        path += "/"
+    return path

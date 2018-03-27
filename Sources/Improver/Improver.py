@@ -31,7 +31,7 @@ class Improver(object):
                 xmin, xmax, ymin, ymax = get_position(self.conf.args['type'], self.conf.args['camera'], width, height)
                 x = {'min': xmin, 'max': xmax}
                 y = {'min': ymin, 'max': ymax}
-                self.json.save(frame, "goal_KO", self.conf.args)
+                self.json.save(frame, self.get_label(self.conf.args['label']), self.conf.args)
                 image_save(self.conf.args['output'][1:], frame)
                 frames_done += self.conf.args['step']
         except IndexError:
@@ -40,3 +40,8 @@ class Improver(object):
     def print_state(self, frame, total):
         sys.stdout.write("\033[F\033[J")
         print("Frame:\t\t", frame, "/", total)
+
+    def get_label(self, id):
+        if id == 0:
+            return "goal_KO"
+        return "goal_OK"

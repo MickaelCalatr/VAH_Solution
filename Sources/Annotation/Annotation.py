@@ -26,7 +26,7 @@ class Annotation:
                 print("Processing...\n\n\n")
                 self.detection.run()
                 print("Processing : Done!\n")
-
+            self.video.stop()
         except KeyboardInterrupt:
             print("\n\nEXIT: interrupt received, stoppin...")
         #except FileNotFoundError:
