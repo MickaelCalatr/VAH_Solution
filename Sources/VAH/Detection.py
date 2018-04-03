@@ -55,6 +55,7 @@ class Detection(threading.Thread):
 
     def save_sequence(self, frame):
         results = []
+        print("saved")
         start_point = self.video.take_point(frame['Index'] - self.time_on_side)
         while True:
             frames = self.video.get_frames(self.num_frames, 5)

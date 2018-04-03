@@ -9,6 +9,7 @@ class Video:
         self.video = None
         self.total_frames = 0
         self.frame = 0
+        self.frame_pos = -1
         self.camera = camera
 
     def load(self, name, camera=0):
@@ -19,7 +20,8 @@ class Video:
             print("Wait for the header...\nVideo name :", self.name)
             cv2.waitKey(1000)
             self.video = cv2.VideoCapture(name)
-        self.frame = 0
+        self.frame = 0#158000
+        self.frame_pos = -1
         self.video.set(cv2.CAP_PROP_POS_FRAMES, self.frame)
         self.total_frames = int(self.video.get(cv2.CAP_PROP_FRAME_COUNT))
 
@@ -40,18 +42,19 @@ class Video:
         frames = []
         flag = False
         for i in range(0, (block * step), step):
+            self.video.set(cv2.CAP_PROP_POS_FRAMES, self.frame)
             flag, image = self.video.read()
             # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             # cv2.imshow('image',image)
             # cv2.waitKey(0)
             # cv2.destroyAllWindows()
-            if (not flag) or (len(frames) > 0 and (image == frames[-1]['Image']).all()):
+            if not flag or self.frame_pos == self.video.get(cv2.CAP_PROP_POS_MSEC):
                 raise IndexError
             else:
                 frame = {'Index': self.frame, 'Image': image}
                 frames.append(frame)
                 self.frame += step
-            self.video.set(cv2.CAP_PROP_POS_FRAMES, self.frame)
+                self.frame_pos = self.video.get(cv2.CAP_PROP_POS_MSEC)
         return frames
 
 
