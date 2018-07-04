@@ -6,7 +6,7 @@ from Sources.Common.Json import Wrapper
 import sys
 
 class Detect:
-    def __init__(self, video, output_dir):
+    def __init__(self, video, output_dir="./"):
         self.output_dir = output_dir
         self.video = video
         self.controler = Controler()
@@ -14,9 +14,10 @@ class Detect:
         self.wrapper = None#Wrapper(self.video.get_frame(1)['Image'].shape, self.conf)
 
 
-    def update(self, conf):
+    def initialize(self, conf):
         self.time = Time(self.video.total_frames)
         self.wrapper = Wrapper(self.video.get_frame(1)['Image'].shape, conf)
+        self.output_dir = conf.output_dir
 
 
     def run(self):

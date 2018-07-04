@@ -54,19 +54,24 @@ class Controler:
         goal = False
         keep = False
         nb = 1
-        dic = {97: 10, 122: 24, 101: 100, 114: 250, 65601: -10, 65626: -24, 65605: -100, 65618: -250, 65363: 1, 65361: -1, 65362: 3}
+
+        dic = {1048673: 10, 1048698: 24, 1048677: 100, 1048690: 250, 1114177: -10, 1114202: -24, 1114181: -100, 1114194: -250, 1113939: 1, 1113937: -1, 1113938: 3}
         dic_func = {102: event_free_kick, 115: event_shoot, 112: event_penalty, 119: event_nothing}
+        #dic = {97: 10, 122: 24, 101: 100, 114: 250, 65601: -10, 65626: -24, 65605: -100, 65618: -250, 65363: 1, 65361: -1, 65362: 3}
+        #dic_func = {102: event_free_kick, 115: event_shoot, 112: event_penalty, 119: event_nothing}
         while True:
             k = cv2.waitKey(33)
+            # if k != -1:
+            #     print(k)
             if k in dic:
                 nb = dic[k]
                 break
             elif k in dic_func:
                 dic_func[k]()
-            elif k == 103: # Goal
+            elif k == 1048679:#103: # Goal
                 goal = True
                 break
-            elif k == 110: # Nothing but keep
+            elif k == 1048686:#110: # Nothing but keep
                 keep = True
                 break
             elif k == -1:

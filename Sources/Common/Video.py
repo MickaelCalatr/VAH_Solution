@@ -5,17 +5,17 @@ import time
 class Video:
     def __init__(self, name=None, camera=0):
         super(Video, self).__init__()
-        self.name = name
         self.video = None
         self.total_frames = 0
+        self.video_name = None
         self.frame = 0
         self.frame_pos = -1
         self.camera = camera
 
     def load(self, name, camera=0):
         self.video = cv2.VideoCapture(name)
+        self.video_name = name
         self.camera = camera
-        self.name = name
         while not self.video.isOpened():
             print("Wait for the header...\nVideo name :", self.name)
             cv2.waitKey(1000)
@@ -67,7 +67,7 @@ class Video:
             if not flag:
                 raise IndexError
             else:
-                name = str(self.camera) + "." + str(self.frame)
+                name = str(self.total_frames) + str(self.camera) + "." + str(self.frame)
                 dic = {'Frame' : int(self.frame), 'Name' : name, 'Image': image}
                 self.frame += nb
                 break

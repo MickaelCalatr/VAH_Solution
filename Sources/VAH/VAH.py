@@ -34,14 +34,18 @@ class VideoHighlight:
             pass
         writer = Saver.instance()
         printer = Print.instance()
-        printer.initialize(len(self.conf.args['input']), self.conf.args['input'])
         self.download()
+        to_print = []
         for video_name in self.cameras:
-            detection = Detection(writer, printer, self.conf, video_name)
-            self.workers.append(detection)
+            if "0." in video_name or "2." in video_name:
+                detection = Detection(writer, printer, self.conf, video_name, self.cameras)
+                self.workers.append(detection)
+                to_print.append(video_name)
+        printer.initialize(len(to_print), to_print)
         for thread in self.workers:
             thread.start()
         for thread in self.workers:
             thread.join()
         writer.save_video_file()
-        writer.create_final_video(self.conf.args['video_name'], './')
+        writer.create_final_video(self.conf.args['video_name'], self.conf.args['output_directory'])
+        writer.close()

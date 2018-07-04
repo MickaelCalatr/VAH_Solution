@@ -20,16 +20,22 @@ class Writer(object):
                     create(cls.path_tmp)
         return cls.singleton_instance
 
-    def add_video(cls, start, end, thread_id):
+    def add_video(cls, start, end, thread_id, other_ids):
         with cls.singleton_lock:
             times = str(start) + "-" + str(end)
             if thread_id not in cls.video_list:
                 cls.video_list.update({thread_id: []})
             cls.video_list[thread_id].append(times)
+            if len(other_ids) > 0:
+                times = str(start + 1) + "-" + str(end + 1)
+                for next_id in other_ids:
+                    if next_id not in cls.video_list:
+                        cls.video_list.update({next_id: []})
+                    cls.video_list[next_id].append(times)
 
     def create_final_video(cls, video_name, path):
         video_name = path + video_name
-        os.system("ffmpeg -loglevel quiet -f concat -safe 0 -i " + cls.path_tmp + cls.filename + " -c copy " + cls.path_to_save + video_name)
+        os.system("ffmpeg -loglevel quiet -f concat -safe 0 -i " + cls.path_tmp + cls.filename + " -c copy " + video_name)
 
     def save_video_file(cls):
         with cls.singleton_lock:

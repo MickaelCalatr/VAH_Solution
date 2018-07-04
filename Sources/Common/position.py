@@ -16,10 +16,15 @@ def get_news_positions(camera, width, height):
         ymin = int((200 * height) / 720)
         xmax = int((600 * width) / 1280)
         ymax = int((400 * height) / 720)
-    elif camera == 3:
-        xmin = int((270 * width) / 1280)
-        ymin = int((180 * height) / 720)
-        xmax = int((600 * width) / 1280)
+    elif camera == 3 or camera == 4:
+        xmin = 0
+        ymin = 0
+        xmax = width
+        ymax = height
+    elif camera == 1:
+        xmin = int((700 * width) / 1280)
+        ymin = int((200 * height) / 720)
+        xmax = int((1100 * width) / 1280)
         ymax = int((400 * height) / 720)
     return (xmin, xmax, ymin, ymax)
 
@@ -34,9 +39,14 @@ def get_olds_positions(camera, width, height):
         ymin = int((80 * height) / 720)
         xmax = int((1020 * width) / 1280)
         ymax = int((300 * height) / 720)
-    elif camera == 3:
-        xmin = int((270 * width) / 1280)
-        ymin = int((180 * height) / 720)
-        xmax = int((600 * width) / 1280)
+    elif camera == 3 or camera == 4:
+        xmin = 0
+        ymin = 0
+        xmax = width
+        ymax = height
+    elif camera == 1:
+        xmin = int((700 * width) / 1280)
+        ymin = int((200 * height) / 720)
+        xmax = int((1100 * width) / 1280)
         ymax = int((400 * height) / 720)
     return (xmin, xmax, ymin, ymax)

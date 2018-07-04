@@ -8,24 +8,14 @@ class Annotation:
     def __init__(self):
         self.conf = Config()
         self.video = Video()
-        self.detection = Detect(self.video, self.conf.output_dir)
-
-
-    def initialize(self):
-        print("Initialize...")
-        self.conf.initialize()
-        create("." + self.conf.output_dir)
-        print("Initialize : Done!\n")
-
+        self.detection = Detect(self.video)
 
     def run(self):
         try:
             self.initialize()
-            for video in self.conf.video_source:
-                self.update(video)
-                print("Processing...\n\n\n")
-                self.detection.run()
-                print("Processing : Done!\n")
+            print("Processing...\n\n\n")
+            self.detection.run()
+            print("Processing : Done!\n")
             self.video.stop()
         except KeyboardInterrupt:
             print("\n\nEXIT: interrupt received, stoppin...")
@@ -40,10 +30,19 @@ class Annotation:
         print("Finish.")
 
 
-    def update(self, video):
-        name = video.split("/")[-1]
+    def initialize(self):
+        print("Initialize...")
+        self.conf.initialize()
+        name = self.conf.video_source.split("/")[-1]
+
         print("Loading data from :", name, "...")
-        self.conf.camera = int(name.split('.')[0])
-        self.video.load(video, self.conf.camera)
-        self.detection.update(self.conf)
+        camera = name.split('.')[0]
+        self.conf.camera = int(camera)
+        self.conf.output_dir += camera + "/"
+        create("." + self.conf.output_dir)
+        self.video.load(self.conf.video_source, self.conf.camera)
+        self.video.frame = self.conf.frame
+        self.detection.initialize(self.conf)
         print("Loading data : Done!\n")
+
+        print("Initialize : Done!\n")

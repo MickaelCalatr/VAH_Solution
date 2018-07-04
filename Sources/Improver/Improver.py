@@ -6,6 +6,7 @@ from Sources.Common.image import image_save
 from Sources.Common.folder import create
 
 import sys
+import cv2
 
 class Improver(object):
     """docstring for Improver."""
