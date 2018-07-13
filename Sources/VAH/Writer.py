@@ -1,7 +1,7 @@
 import threading
 import os
 
-from Sources.Common.folder import create
+from Sources.Common.folder import create, delete
 
 class Writer(object):
     singleton_lock = threading.Lock()
